@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace AnagramWebsite
 {
@@ -24,7 +23,7 @@ namespace AnagramWebsite
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-cyborg.css",
                       "~/Content/site.css"));
         }
     }

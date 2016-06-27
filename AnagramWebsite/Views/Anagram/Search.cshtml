@@ -4,5 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.SecretPhrase</h2>
+Hint Phrase  <input type="text" />
+MD5 Hash Key <input type="text" />
+<input type="button" title="Search"
+
+<p>Hint Phrase:  @Model.HintPhrase</p>
+<p>MD5 Hash Key: @Model.MD5HashKeyOfSolution</p>
+<p>Total Time:   @Model.TotalTime</p>
 

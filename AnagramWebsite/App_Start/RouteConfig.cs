@@ -9,8 +9,7 @@ namespace AnagramWebsite
         {
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Anagram", action = "Search", id = UrlParameter.Optional }
+                defaults: new { controller = "Anagram", action = "Search", hintPhrase = UrlParameter.Optional, md5HashKey = UrlParameter.Optional }
             );
         }
     }
