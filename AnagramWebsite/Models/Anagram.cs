@@ -101,20 +101,14 @@ namespace AnagramWebsite.Models
         /// </summary>
         private List<string> DistinctWordList { get; set; }
 
-        public int WordsFiltered
-        {
-            get
-            {
-                return DistinctWordList.Count;
-            }
-        }
+        public int WordsFiltered => DistinctWordList.Count;
 
         public Dictionary<string, HashSet<string>> WordHash { get; private set; }
 
         private int[] MaxPhraseLengths;
         private int[] MinPhraseLengths;
 
-        public TimeSpan TotalTime { get { return EndTime.Value - StartTime.Value; } }
+        public TimeSpan TotalTime => EndTime.Value - StartTime.Value;
 
         /// <summary>
         /// Total nodes added to the tree
@@ -129,12 +123,12 @@ namespace AnagramWebsite.Models
 
             if (string.IsNullOrEmpty(hintPhrase))
             {
-                throw new ArgumentNullException("hintPhrase", "hintPhrase is null or empty.");
+                throw new ArgumentNullException(nameof(hintPhrase), "hintPhrase is null or empty.");
             }
 
             if (string.IsNullOrEmpty(md5HashKeyOfSolution))
             {
-                throw new ArgumentNullException("md5HashKeyOfSolution", "md5HashKeyOfSolution is null or empty.");
+                throw new ArgumentNullException(nameof(md5HashKeyOfSolution), "md5HashKeyOfSolution is null or empty.");
             }
 
             HintPhrase = hintPhrase;
@@ -199,15 +193,8 @@ namespace AnagramWebsite.Models
                 WordHash = null;
             }
 
-            if (MaxPhraseLengths != null)
-            {
-                MaxPhraseLengths = null;
-            }
-
-            if (MinPhraseLengths != null)
-            {
-                MinPhraseLengths = null;
-            }
+            MaxPhraseLengths = null;
+            MinPhraseLengths = null;
         }
 
         private void CreateWordHash()
@@ -229,7 +216,7 @@ namespace AnagramWebsite.Models
             }
         }
 
-        private string GetHashKey(string word)
+        private static string GetHashKey(string word)
         {
             var charArray = word.ToCharArray();
             Array.Sort(charArray);
@@ -397,7 +384,7 @@ namespace AnagramWebsite.Models
         /// </summary>
         /// <param name="stringToCount"></param>
         /// <returns></returns>
-        private Dictionary<char, int> GetCharCountFromString(string stringToCount)
+        private static Dictionary<char, int> GetCharCountFromString(string stringToCount)
         {
             var countDictionary = new Dictionary<char, int>();
 
@@ -421,7 +408,7 @@ namespace AnagramWebsite.Models
             DistinctListStartTime = DateTime.Now;
             DistinctWordList = new List<string>();
 
-            var path = HttpContext.Current.Server.MapPath(string.Format(@"~/bin/App_Data/{0}", InputFile));
+            var path = HttpContext.Current.Server.MapPath($@"~/bin/App_Data/{InputFile}");
 
             foreach (var word in File.ReadAllLines(path).ToList())
             {
@@ -482,20 +469,20 @@ namespace AnagramWebsite.Models
             var stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine(" =========================================================");
-            stringBuilder.AppendLine(string.Format(" | Hint Phrase:          {0}", HintPhrase));
-            stringBuilder.AppendLine(string.Format(" | MD5 Hash Key:         {0}", MD5HashKeyOfSolution));
+            stringBuilder.AppendLine($" | Hint Phrase:          {HintPhrase}");
+            stringBuilder.AppendLine($" | MD5 Hash Key:         {MD5HashKeyOfSolution}");
             stringBuilder.AppendLine(" |");
-            stringBuilder.AppendLine(string.Format(" | Total Time:           {0}", TotalTime));
+            stringBuilder.AppendLine($" | Total Time:           {TotalTime}");
             stringBuilder.AppendLine(" |");
-            stringBuilder.AppendLine(string.Format(" | Word Filter Time:     {0}", DistinctListEndTime - DistinctListStartTime));
-            stringBuilder.AppendLine(string.Format(" | Words Filted:         {0:n0}", WordsFiltered));
+            stringBuilder.AppendLine($" | Word Filter Time:     {DistinctListEndTime - DistinctListStartTime}");
+            stringBuilder.AppendLine($" | Words Filted:         {WordsFiltered:n0}");
             stringBuilder.AppendLine(" |");
-            stringBuilder.AppendLine(string.Format(" | Node Adding Time:     {0}", AddNodesEndTime - AddNodesStartTime));
-            stringBuilder.AppendLine(string.Format(" | Nodes Added:          {0:n0}", NumNodes));
+            stringBuilder.AppendLine($" | Node Adding Time:     {AddNodesEndTime - AddNodesStartTime}");
+            stringBuilder.AppendLine($" | Nodes Added:          {NumNodes:n0}");
             stringBuilder.AppendLine(" |");
-            stringBuilder.AppendLine(string.Format(" | MD5 Comparisons:      {0:n0}", NumMD5HashKeyComparisons));
+            stringBuilder.AppendLine($" | MD5 Comparisons:      {NumMD5HashKeyComparisons:n0}");
             stringBuilder.AppendLine(" |");
-            stringBuilder.AppendLine(SecretPhraseFound ? string.Format(" | Secret Phrase:        {0}", SecretPhrase) : " | Secret phrase was not found.");
+            stringBuilder.AppendLine(SecretPhraseFound ? $" | Secret Phrase:        {SecretPhrase}" : " | Secret phrase was not found.");
             stringBuilder.AppendLine(" =========================================================");
 
             Console.WriteLine(stringBuilder.ToString());

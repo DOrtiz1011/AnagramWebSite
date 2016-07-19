@@ -5,9 +5,9 @@ namespace AnagramWebsite.Models
 {
     internal class Node
     {
-        public string Word { get; private set; }
-        public int WordNumber { get; private set; }
-        public Node ParentNode { get; private set; }
+        public string Word { get; }
+        public int WordNumber { get; }
+        public Node ParentNode { get; }
 
         public Node(string word, Node parentNode, int wordNumber)
         {
